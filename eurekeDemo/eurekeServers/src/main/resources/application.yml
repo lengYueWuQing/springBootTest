@@ -1,0 +1,28 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: eureka-server
+  security:
+    basic:
+      enabled: true
+    user:
+      name: eurekaTemp
+      password: 123456
+eureka:
+  instance:
+    hostname: eurekaserver01
+    instance-id: ${eureka.instance.hostname}:${server.port}
+    #prefer-ip-address: true #使用ip进行注册
+  server:
+    enable-self-preservation: false
+    #让实例不会过期 确保注册中心将不可用的实例删除
+    eviction-interval-timer-in-ms: 6000
+    #清理服务间隔6s，默认60*10000
+  client:
+    #是否将此服务实例注册到Eureka上，由于此服务就是Eureka的注册中心，所以不需要将自身进行注册 fasle
+    register-with-eureka: true
+    #指示此客户端是否应从eureka服务器获取eureka注册表信息 不需要 false
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eurekaTemp:123456@${eureka.instance.hostname}:7002/eureka

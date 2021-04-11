@@ -1,0 +1,16 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: tempClient01
+eureka:
+  instance:
+    #preferIpAddress: true
+    #这样写eureka服务注册中心会显示本机ip+端口号
+    #instanceId: ${spring.cloud.client.ipAddress}:${server.port}
+    #这样写eureka服务注册中心会显示项目名和端口号
+    instanceId: ${spring.application.name}:${server.port}
+
+  client:
+    serviceUrl:
+      defaultZone: http://eurekaTemp:123456@eurekaserver01:7001/eureka/,http://eurekaTemp:123456@eurekaserver02:7002/eureka/
